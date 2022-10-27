@@ -1,0 +1,72 @@
+﻿Name,Latitude,Longitude,Symbol,Points,Time
+START,40.6852,-80.08761,Residence,0,24/7
+END,40.6852,-80.08761,Residence,0,24/7
+PA01  ,40.5207,-79.8141,"Flag Green",100,24/7
+PA02  ,40.2059,-79.5665,"Flag Green",100,24/7
+PA03  ,40.0004,-79.0446,"Flag Green",100,24/7
+PA04  ,39.9994,-79.0458,"Flag Green",100,24/7
+PA05  ,40.0309,-78.4918,"Flag Green",100,24/7
+PA06  ,40.0292,-78.493,"Flag Green",100,24/7
+PA07  ,40.0591,-78.0815,"Flag Green",100,24/7
+PA08  ,40.1662,-77.5974,"Flag Green",100,24/7
+PA09  ,40.2048,-77.2878,"Flag Green",100,24/7
+PA10  ,40.2095,-76.743,"Flag Green",100,24/7
+PA11  ,40.2084,-76.5745,"Flag Green",100,24/7
+PA12  ,40.2023,-76.0159,"Flag Green",100,24/7
+PA13  ,40.1223,-75.7762,"Flag Green",100,24/7
+PA14  ,40.0828,-75.4397,"Flag Green",100,24/7
+PA15  ,40.0895,-75.3709,"Flag Green",100,24/7
+ATM   ,41.16957,-82.21743,"Flag Green",150,24/7
+RSR   ,41.48066,-84.55173,"Flag Green",198,24/7
+RSM   ,44.00623,-78.72878,"Flag Green",199,Day
+AHE   ,39.9926,-75.5793,"Flag Green",200,Day
+QUI   ,41.93582,-85.05451,"Flag Green",201,Day
+OMB   ,43.89478,-78.86237,"Flag Green",250,10am - 6pm
+UR3   ,42.31977,-83.03685,"Flag Green",292,Day
+UR2   ,42.32638,-83.04395,"Flag Green",293,Day
+UR1   ,42.31903,-85.17943,"Flag Green",294,Day
+TWM   ,41.47205,-74.91738,"Flag Green",295,Day
+CCM   ,44.28798,-78.33063,"Flag Green",296,Day
+BFB   ,41.86667,-72.62937,"Flag Green",297,Day
+BB4   ,41.40861,-75.67187,"Flag Green",298,9am - 5pm
+BAG   ,43.02558,-83.67635,"Flag Green",299,Day
+BUZ   ,41.74323,-70.61393,"Flag Blue",301,Day
+CON   ,46.16052,-63.81713,"Flag Blue",302,Day
+EMM   ,42.13595,-80.08722,"Flag Blue",303,July 4th day
+GSS   ,40.71232,-73.88818,"Flag Blue",304,7am - 5pm
+LAA   ,42.30937,-71.13492,"Flag Blue",306,10am - 4pm
+MBT   ,40.29943,-76.69003,"Flag Blue",307,Day
+MOY   ,41.47958,-71.33591,"Flag Blue",308,Day
+RCW   ,44.91628,-75.83872,"Flag Blue",308,Day
+SMB   ,43.02328,-83.67745,"Flag Blue",309,10am - 5pm
+NSM   ,42.12175,-76.9015,"Flag Blue",399,Day
+ACD   ,41.35627,-85.05743,"Flag Blue",400,Day
+EFA   ,42.33508,-82.98548,"Flag Blue",401,Day
+GCM   ,42.39755,-77.23219,"Flag Blue",402,Day
+TIC   ,44.3705,-73.23142,"Flag Blue",497,10am - 5pm
+BOM   ,45.49463,-72.31069,"Flag Blue",498,Day
+BBR   ,40.7027,-73.9949,"Flag Blue",499,Day
+AD1   ,40.77267,-73.98202,"Flag Red",500,24/7
+GMP   ,40.92758,-72.79178,"Flag Red",501,24/7
+KLL   ,44.58987,-78.98943,"Flag Red",502,24/7
+OW1   ,42.77191,-82.12114,"Flag Red",503,Day
+TMB   ,38.87199,-77.01935,"Flag Red",505,Day
+JIP   ,40.32552,-78.92867,"Flag Red",555,Day
+OW2   ,41.61101,-79.657,"Flag Red",744,Day
+OSM   ,45.90055,-61.0937,"Flag Red",745,Day
+FHE   ,47.12877,-70.37077,"Flag Red",746,9am - 6pm
+EDM   ,47.19487,-70.2852,"Flag Red",747,Day
+COG   ,44.27005,-71.3509,"Flag Red",748,Day
+CHU   ,44.88494,-79.67278,"Flag Red",749,Day
+BHC   ,46.50518,-84.32483,"Flag Red",750,24/7
+TCH   ,46.92826,-84.42544,"Flag Red",751,24/7
+AGB   ,46.1038,-60.7465,"Flag Red",888,Day
+AST   ,28.52696,-80.78304,"Flag Red",950,24/7
+DES   ,29.19218,-81.06785,"Flag Red",950,24/7
+PEE   ,41.77955,-82.6699,"Flag Red",998,Day
+AER   ,43.1178,-79.06813,"Flag Red",999,9am - 8pm
+MMA   ,44.6474,-63.5712,"Flag Red",999,Day
+IRE   ,48.51753,-68.46847,"Flag Red",1000,Day
+MAC   ,45.84732,-84.72553,"Flag Red",1199,Day
+HFM   ,42.3025,-83.2318,"Flag Red",1666,9:30M - 5PM
+CTT   ,24.5604,-81.8059,"Flag Red",3000,9am - 4:30pm
