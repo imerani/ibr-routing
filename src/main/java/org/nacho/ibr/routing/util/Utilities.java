@@ -1,6 +1,6 @@
 package org.nacho.ibr.routing.util;
 
-import io.jenetics.jpx.GPX;
+import org.nacho.ibr.routing.model.Distance;
 import org.nacho.ibr.routing.model.Location;
 import org.nacho.ibr.routing.model.Route;
 
@@ -15,7 +15,7 @@ public class Utilities {
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
         dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
+        dist = dist * 60 * 1.1515 * 1600;
         return (dist);
     }
 
@@ -39,8 +39,10 @@ public class Utilities {
                 if (location.getName().equals(l.getName())) {
                     continue;
                 }
-                location.getDistances().put(l.getName(), distance(location.getLatitude(), location.getLongitude(),
+                Distance d = new Distance();
+                d.setMeters((int)distance(location.getLatitude(), location.getLongitude(),
                         l.getLatitude(), l.getLongitude()));
+                location.getDistances().put(l.getName(), d);
             }
         }
     }

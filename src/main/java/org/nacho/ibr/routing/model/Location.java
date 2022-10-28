@@ -13,7 +13,9 @@ public class Location {
     private String time;
     private String description;
 
-    private Map<String, Double> distances = new HashMap<>();
+    public Location() {}
+
+    private Map<String, Distance> distances = new HashMap<>();
 
     public Location(String name, float latitude, float longitude, String icon, int points,  String time) {
         this.latitude = latitude;
@@ -80,7 +82,7 @@ public class Location {
         this.name = name;
     }
 
-    public Map<String, Double> getDistances() {
+    public Map<String, Distance> getDistances() {
         return distances;
     }
 }

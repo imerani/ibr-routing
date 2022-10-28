@@ -1,29 +1,39 @@
 package org.nacho.ibr.routing;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.maps.internal.ratelimiter.Stopwatch;
+import jdk.jshell.spi.ExecutionControl;
 import org.nacho.ibr.routing.model.Location;
 import org.nacho.ibr.routing.model.Route;
-import org.nacho.ibr.routing.parser.CSVReader;
 import org.nacho.ibr.routing.processor.RouteExpander;
 import org.nacho.ibr.routing.util.Exporter;
 import org.nacho.ibr.routing.util.Utilities;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Hello world!
  */
 public class App {
-    public static void main(String[] args) throws InterruptedException {
-        double min = 3000;
-        double max = 3500;
+    public static void main(String[] args) throws InterruptedException, IOException {
+        // Parameters
+        int minHours = 68;
+        int maxHours = 72;
+        int stops = 20 * 60;
+
         int minpoints = 499;
 
-        CSVReader reader = new CSVReader("leg1.csv");
-        Map<String, Location> locations = reader.getLocations();
-        Utilities.addDistances(locations);
+        Stopwatch timer = Stopwatch.createStarted();
+        //CSVReader reader = new CSVReader("leg1.csv");
+        ObjectMapper objectMapper = new ObjectMapper();
+        Location[] l = objectMapper.readValue(new File("leg1.json"), Location[].class);
+        Map<String, Location> locations = new HashMap<>();
+        //Utilities.addDistances(locations);
+        for (int i=0; i < l.length; i++) {
+            locations.put(l[i].getName(), l[i]);
+        }
 
         Route initial = new Route();
         List<Route> routes = new ArrayList<>();
@@ -39,11 +49,13 @@ public class App {
 
         initial.setStart(start);
         initial.setEnd(end);
+        int min = minHours * 3600;
+        int max = maxHours * 3600;
         int i = 0;
         while (!routes.isEmpty()) {
             List<RouteExpander> expanders = new ArrayList<>();
             for (Route route: routes) {
-                RouteExpander expander = new RouteExpander(route, locations, min, max);
+                RouteExpander expander = new RouteExpander(route, locations, min, max, stops);
                 expanders.add(expander);
                 expander.start();
             }
@@ -69,5 +81,6 @@ public class App {
         }
 
         Exporter.exportRoutes("routes", winners);
+        System.out.println("Time: " + timer.stop());
     }
 }

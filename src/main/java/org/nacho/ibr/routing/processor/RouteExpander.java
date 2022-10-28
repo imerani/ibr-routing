@@ -11,8 +11,10 @@ import java.util.Map;
 public class RouteExpander extends Thread {
     private Route route;
     private Map<String, Location> locations;
-    private double max;
-    private double min;
+    private long max;
+    private long min;
+
+    private int stops;
 
     public Route getWinner() {
         return winner;
@@ -32,24 +34,25 @@ public class RouteExpander extends Thread {
 
     private List<Route> winners = new ArrayList<>();
 
-    public RouteExpander(Route route, Map<String, Location> locations, double min, double max) {
+    public RouteExpander(Route route, Map<String, Location> locations, long min, long max, int stops) {
         this.route = route;
         this.locations = locations;
         this.max = max;
         this.min = min;
+        this.stops = stops;
     }
 
     @Override
     public void run() {
         for (Location l : locations.values()) {
             Route r = Utilities.cloneRoute(route);
-            if (r.addLocation(l) && r.getDistance() < max) {
+            if (r.addLocation(l) && r.getTime() < max) {
                 result.add(r);
             }
         }
         int best = 0;
         for (Route r: result) {
-            if (r.getDistance() > min && r.getDistance() < max) {
+            if (r.getTime() > min && r.getTime() < max) {
                 if (r.getValue() > best) {
                     best = r.getValue();
                     winner = r;

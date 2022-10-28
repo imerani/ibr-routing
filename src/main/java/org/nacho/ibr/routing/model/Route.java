@@ -7,7 +7,23 @@ public class Route {
     private Location start;
     private Location end;
 
-    private double distance;
+    private long distance;
+
+    public long getTime() {
+        return time;
+    }
+
+    private long time;
+
+    public int getStops() {
+        return stops;
+    }
+
+    public void setStops(int stops) {
+        this.stops = stops;
+    }
+
+    private int stops;
     private int value;
 
     public Queue<Location> getPoints() {
@@ -17,22 +33,30 @@ public class Route {
     private Queue<Location> points = new LinkedList<>();
 
     public boolean addLocation(Location location) {
-        double d = 0;
+        long d = 0;
         int v = 0;
+        long t = 0;
         Location last = start;
         for (Location l: points) {
             v += l.getPoints();
-            d += last.getDistances().get(l.getName());
+            d += last.getDistances().get(l.getName()).getMeters();
+            t += last.getDistances().get(l.getName()).getTime();
+            t += stops;
             last = l;
             if (location.getName().equals(l.getName())) {
                 return false;
             }
         }
-        d += last.getDistances().get(location.getName());
-        d += location.getDistances().get(end.getName());
+        d += last.getDistances().get(location.getName()).getMeters();
+        t += last.getDistances().get(location.getName()).getTime();
+        t += stops;
+        d += location.getDistances().get(end.getName()).getMeters();
+        t += location.getDistances().get(end.getName()).getTime();
+
         v += location.getPoints();
         distance = d;
         value = v;
+        time = t;
         points.add(location);
         return true;
     }
@@ -65,7 +89,7 @@ public class Route {
         this.points = points;
     }
 
-    public double getDistance() {
+    public long getDistance() {
         return distance;
     }
 
