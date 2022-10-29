@@ -19,11 +19,11 @@ import java.util.*;
 public class App {
     public static void main(String[] args) throws InterruptedException, IOException {
         // Parameters
-        int minHours = 68;
-        int maxHours = 72;
+        int minHours = 60;
+        int maxHours = 64;
         int stops = 20 * 60;
 
-        int minpoints = 499;
+        int minpoints = 450;
 
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");
@@ -80,7 +80,7 @@ public class App {
             i++;
         }
 
-        Exporter.exportRoutes("routes", winners);
+        Exporter.exportRoutes("routes", winners, l);
         System.out.println("Time: " + timer.stop());
     }
 }

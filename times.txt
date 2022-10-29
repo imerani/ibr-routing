@@ -1,0 +1,3 @@
+24 rows = 55.16s
+27 rows = 4.2 min
+31 rows = 44

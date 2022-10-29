@@ -9,11 +9,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.Collection;
 import java.util.List;
 
 public class Exporter {
 
-    public static void exportRoutes(String filename, List<org.nacho.ibr.routing.model.Route> routes) {
+    public static void exportRoutes(String filename, List<org.nacho.ibr.routing.model.Route> routes, Location[] locations) {
         GPX.Builder builder = GPX.builder();
         for (org.nacho.ibr.routing.model.Route route: routes) {
             io.jenetics.jpx.Route.Builder rb = io.jenetics.jpx.Route.builder();
@@ -29,6 +30,10 @@ public class Exporter {
             rb.addPoint(WayPoint.builder().lat(end.getLatitude()).lon(end.getLongitude())
                     .name(end.getName()).cmt(end.getDescription()).build());
             builder.addRoute(rb.build());
+        }
+        for (Location location: locations) {
+            builder.addWayPoint(WayPoint.builder().lat(location.getLatitude()).lon(location.getLongitude())
+                    .name(createPointName(location)).cmt(location.getDescription()).build());
         }
         GPX gpx = builder.build();
         try {
