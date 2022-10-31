@@ -28,7 +28,7 @@ public class CSVReader {
                 String[] values = line.split(",");
                 Location l = new Location(values[0].trim(), Float.parseFloat(values[1]),
                         Float.parseFloat(values[2]), values[3],
-                        Integer.parseInt(values[4]), values[5]);
+                        Integer.parseInt(values[4]), values[5], Integer.parseInt(values[6]), Integer.parseInt(values[7]));
                 locations.put(l.getName(), l);
             }
             reader.close();

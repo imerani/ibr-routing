@@ -11,6 +11,11 @@ public class Distance {
 
     public Distance() {}
 
+    public Distance(long time, long meters) {
+        this.time = time;
+        this.meters = meters;
+    }
+
     public long getMeters() {
         return meters;
     }

@@ -13,17 +13,38 @@ public class Location {
     private String time;
     private String description;
 
+    private int minHour;
+    private int maxHour;
+
+    public int getMinHour() {
+        return minHour;
+    }
+
+    public void setMinHour(int minHour) {
+        this.minHour = minHour;
+    }
+
+    public int getMaxHour() {
+        return maxHour;
+    }
+
+    public void setMaxHour(int maxHour) {
+        this.maxHour = maxHour;
+    }
+
     public Location() {}
 
     private Map<String, Distance> distances = new HashMap<>();
 
-    public Location(String name, float latitude, float longitude, String icon, int points,  String time) {
+    public Location(String name, float latitude, float longitude, String icon, int points,  String time, int minHour, int maxHour) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
         this.points = points;
         this.icon = icon;
         this.time = time;
+        this.minHour = minHour;
+        this.maxHour = maxHour;
     }
 
     public int getPoints() {

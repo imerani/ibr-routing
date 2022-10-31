@@ -48,7 +48,7 @@ public class Utilities {
     }
 
     public static Route cloneRoute(Route route) {
-        Route r = new Route();
+        Route r = new Route(route.getValidator(), route.getParameters());
         r.setName(route.getName());
         r.setStart(route.getStart());
         r.setEnd(route.getEnd());

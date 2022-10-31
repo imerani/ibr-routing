@@ -5,7 +5,11 @@ import com.google.maps.internal.ratelimiter.Stopwatch;
 import jdk.jshell.spi.ExecutionControl;
 import org.nacho.ibr.routing.model.Location;
 import org.nacho.ibr.routing.model.Route;
+import org.nacho.ibr.routing.model.RouteParameters;
+import org.nacho.ibr.routing.processor.FastRouteValidator;
 import org.nacho.ibr.routing.processor.RouteExpander;
+import org.nacho.ibr.routing.processor.RouteValidator;
+import org.nacho.ibr.routing.processor.TimeRouteValidator;
 import org.nacho.ibr.routing.util.Exporter;
 import org.nacho.ibr.routing.util.Utilities;
 
@@ -28,14 +32,25 @@ public class App {
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");
         ObjectMapper objectMapper = new ObjectMapper();
-        Location[] l = objectMapper.readValue(new File("leg1.json"), Location[].class);
+        Location[] l = objectMapper.readValue(new File("testtimes.json"), Location[].class);
         Map<String, Location> locations = new HashMap<>();
         //Utilities.addDistances(locations);
         for (int i=0; i < l.length; i++) {
             locations.put(l[i].getName(), l[i]);
         }
+        //RouteValidator validator = new FastRouteValidator();
+        RouteValidator validator = new TimeRouteValidator();
+        RouteParameters parameters = new RouteParameters();
+        parameters.setMaxSeconds(maxHours * 3600);
+        parameters.setMinSeconds(minHours * 3600);
+        parameters.setSleepHours(4);
+        parameters.setStopSeconds(stops);
 
-        Route initial = new Route();
+        Calendar cal = Calendar.getInstance();
+        cal.set(2022, 7, 1, 10, 00);
+        parameters.setStartDate(cal.getTime());
+
+        Route initial = new Route(validator, parameters);
         List<Route> routes = new ArrayList<>();
         List<Route> winners = new ArrayList<>();
         winners.add(initial);
@@ -49,13 +64,12 @@ public class App {
 
         initial.setStart(start);
         initial.setEnd(end);
-        int min = minHours * 3600;
-        int max = maxHours * 3600;
+
         int i = 0;
         while (!routes.isEmpty()) {
             List<RouteExpander> expanders = new ArrayList<>();
             for (Route route: routes) {
-                RouteExpander expander = new RouteExpander(route, locations, min, max, stops);
+                RouteExpander expander = new RouteExpander(route, locations, parameters);
                 expanders.add(expander);
                 expander.start();
             }
