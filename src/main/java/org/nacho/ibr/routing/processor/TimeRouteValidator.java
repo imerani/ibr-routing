@@ -34,12 +34,14 @@ public class TimeRouteValidator implements RouteValidator {
         }
         distance += location.getDistances().get(last.getName()).getMeters();
         time += location.getDistances().get(last.getName()).getTime();
+        if (!validateTime(calendar, parameters.getStartDate(), time, location)) return null;
+
         distance += location.getDistances().get("END").getMeters();
         time += location.getDistances().get("END").getTime();
         if (time > parameters.getMaxSeconds()) {
             return null;
         }
-        if (!validateTime(calendar, parameters.getStartDate(), time, location)) return null;
+
         return new Distance(time, distance);
     }
 

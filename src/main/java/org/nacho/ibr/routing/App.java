@@ -27,7 +27,7 @@ public class App {
         int maxHours = 64;
         int stops = 20 * 60;
 
-        int minpoints = 450;
+        int minpoints = 399;
 
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");
@@ -47,7 +47,7 @@ public class App {
         parameters.setStopSeconds(stops);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2022, 7, 1, 10, 00);
+        cal.set(2022, 6, 1, 10, 00);
         parameters.setStartDate(cal.getTime());
 
         Route initial = new Route(validator, parameters);
@@ -82,7 +82,7 @@ public class App {
                     winners.add(expander.getWinner());
                 }
             }
-            System.out.println("Removing duplicates");
+
             routes = Utilities.removeDuplicates(routes);
             winners = Utilities.removeDuplicates(winners);
 

@@ -113,7 +113,7 @@ public class Utilities {
 
     public static List<Route> removeDuplicates(List<Route> routes) {
         Map<String, Route> map = new HashMap<>();
-
+        System.out.print("Removing duplicates... " + routes.size() + " routes...");
         for (Route r: routes) {
             String hash = r.createHash();
             if (map.containsKey(hash)) {
@@ -125,6 +125,7 @@ public class Utilities {
                 map.put(hash, r);
             }
         }
+        System.out.println(map.size() +" routes stayed");
         return new ArrayList<Route>(map.values());
     }
 
