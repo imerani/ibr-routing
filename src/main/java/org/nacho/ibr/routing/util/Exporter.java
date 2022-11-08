@@ -29,6 +29,7 @@ public class Exporter {
             Location end = route.getEnd();
             rb.addPoint(WayPoint.builder().lat(end.getLatitude()).lon(end.getLongitude())
                     .name(end.getName()).cmt(end.getDescription()).build());
+
             builder.addRoute(rb.build());
         }
         for (Location location: locations) {

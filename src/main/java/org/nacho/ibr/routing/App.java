@@ -26,8 +26,9 @@ public class App {
         int minHours = 60;
         int maxHours = 64;
         int stops = 20 * 60;
+        int startSleeping = 23;
 
-        int minpoints = 399;
+        int minpoints = 450;
 
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");
@@ -45,6 +46,7 @@ public class App {
         parameters.setMinSeconds(minHours * 3600);
         parameters.setSleepHours(4);
         parameters.setStopSeconds(stops);
+        parameters.setStartSleeping(startSleeping);
 
         Calendar cal = Calendar.getInstance();
         cal.set(2022, 6, 1, 10, 00);

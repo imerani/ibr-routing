@@ -13,7 +13,7 @@ public class FastRouteValidator implements RouteValidator {
     }
 
     @Override
-    public Distance validateAddLocation(Route route, Location location, RouteParameters parameters) {
+    public Distance addLocation(Route route, Location location, RouteParameters parameters) {
         long distance = 0;
         long time = 0;
         Location last = route.getStart();
@@ -34,6 +34,7 @@ public class FastRouteValidator implements RouteValidator {
         if (time > parameters.getMaxSeconds()) {
             return null;
         }
+        route.getPoints().add(location);
         return new Distance(time, distance);
     }
 }

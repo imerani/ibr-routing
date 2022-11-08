@@ -9,5 +9,5 @@ public interface RouteValidator {
 
     public boolean validateRoute(Route route, RouteParameters parameters);
 
-    public Distance validateAddLocation(Route route, Location location, RouteParameters parameters);
+    public Distance addLocation(Route route, Location location, RouteParameters parameters);
 }

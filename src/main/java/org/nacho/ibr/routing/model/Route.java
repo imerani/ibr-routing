@@ -5,35 +5,34 @@ import org.nacho.ibr.routing.processor.RouteValidator;
 import java.util.*;
 
 public class Route {
-
-    public RouteValidator getValidator() {
-        return validator;
-    }
-
-    public RouteParameters getParameters() {
-        return parameters;
-    }
-
+    private final RouteValidator validator;
+    private final RouteParameters parameters;
     private String name;
     private Location start;
     private Location end;
-
-    private RouteValidator validator;
-
-    private RouteParameters parameters;
-
     private long distance;
+
+    private long time;
+
+    private int stops;
+    private int value;
+
+    private Queue<Location> points = new LinkedList<>();
+
+    private boolean slept[];
 
     public Route(RouteValidator validator, RouteParameters parameters) {
         this.validator = validator;
         this.parameters = parameters;
+        slept = new boolean[parameters.getDays()];
+        for (int i=0; i < slept.length; i++) {
+            slept[i] = false;
+        }
     }
 
     public long getTime() {
         return time;
     }
-
-    private long time;
 
     public int getStops() {
         return stops;
@@ -43,21 +42,19 @@ public class Route {
         this.stops = stops;
     }
 
-    private int stops;
-    private int value;
-
     public Queue<Location> getPoints() {
         return points;
     }
 
-    private Queue<Location> points = new LinkedList<>();
+    public void setPoints(Queue<Location> points) {
+        this.points = points;
+    }
 
     public boolean addLocation(Location location) {
-        Distance d = validator.validateAddLocation(this, location, parameters);
+        Distance d = validator.addLocation(this, location, parameters);
         if (d != null) {
             this.distance = d.getMeters();
             this.time = d.getTime();
-            points.add(location);
             return true;
         }
         return false;
@@ -113,17 +110,13 @@ public class Route {
         this.end = end;
     }
 
-    public void setPoints(Queue<Location> points) {
-        this.points = points;
-    }
-
     public long getDistance() {
         return distance;
     }
 
     public int getValue() {
         if (value == 0) {
-            for (Location l: points) {
+            for (Location l : points) {
                 value += l.getPoints();
             }
         }
@@ -161,5 +154,21 @@ public class Route {
         retorno.append(end.getName());
         retorno.append("\n");
         return retorno.toString();
+    }
+
+    public boolean[] getSlept() {
+        return slept;
+    }
+
+    public void setSlept(boolean[] slept) {
+        this.slept = slept;
+    }
+
+    public RouteValidator getValidator() {
+        return validator;
+    }
+
+    public RouteParameters getParameters() {
+        return parameters;
     }
 }
