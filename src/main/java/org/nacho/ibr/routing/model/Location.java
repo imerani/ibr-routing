@@ -16,6 +16,8 @@ public class Location {
     private int minHour;
     private int maxHour;
 
+    private Location previousLocation;
+
     public int getMinHour() {
         return minHour;
     }
@@ -69,6 +71,14 @@ public class Location {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Location getPreviousLocation() {
+        return previousLocation;
+    }
+
+    public void setPreviousLocation(Location previousLocation) {
+        this.previousLocation = previousLocation;
     }
 
     public String getDescription() {

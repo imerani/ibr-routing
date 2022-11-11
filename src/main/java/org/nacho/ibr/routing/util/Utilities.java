@@ -52,6 +52,7 @@ public class Utilities {
         r.setName(route.getName());
         r.setStart(route.getStart());
         r.setEnd(route.getEnd());
+        r.setSlept(Arrays.copyOf(route.getSlept(), route.getSlept().length));
         Queue<Location> q = new LinkedList<>();
         for (Location l : route.getPoints()) {
             q.add(l);

@@ -28,7 +28,7 @@ public class App {
         int stops = 20 * 60;
         int startSleeping = 23;
 
-        int minpoints = 450;
+        int minpoints = 304;
 
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");

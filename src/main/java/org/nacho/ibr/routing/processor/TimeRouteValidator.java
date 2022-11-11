@@ -38,12 +38,15 @@ public class TimeRouteValidator implements RouteValidator {
         }
 
         boolean needSleep = time > getNextSleep(route, parameters);
+        if (last.getName().equals(RouteParameters.SLEEP)) {
+            last = last.getPreviousLocation();
+        }
         distance += location.getDistances().get(last.getName()).getMeters();
         time += location.getDistances().get(last.getName()).getTime();
 
-        boolean valid = false;
+        boolean valid;
         boolean sleepFirst = false;
-        if (validateTime(calendar, parameters.getStartDate(), time, location)) valid = true;
+        valid = (validateTime(calendar, parameters.getStartDate(), time, location));
 
         if (!valid && needSleep) {
             if (validateTime(calendar, parameters.getStartDate(), time + parameters.getSleepSeconds(), location)) {
@@ -83,7 +86,7 @@ public class TimeRouteValidator implements RouteValidator {
                 return parameters.getBeginSleep()[i];
             }
         }
-        throw new RuntimeException("No more sleep days");
+        return 240 * 3600;
     }
 
     private void setNextSleep(Route route) {
@@ -96,7 +99,9 @@ public class TimeRouteValidator implements RouteValidator {
     }
 
     private Location createSleepLocation(Location location) {
-        return new Location(RouteParameters.SLEEP, location.getLatitude(), location.getLongitude(), location.getIcon(), 0, "",0,0);
+        Location loc = new Location(RouteParameters.SLEEP, location.getLatitude(), location.getLongitude(), location.getIcon(), 0, "",0,0);
+        loc.setPreviousLocation(location);
+        return loc;
     }
 
     private boolean validateTime(Calendar calendar, Date start, long seconds, Location location) {

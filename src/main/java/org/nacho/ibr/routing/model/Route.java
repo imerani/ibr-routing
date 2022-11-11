@@ -14,7 +14,6 @@ public class Route {
 
     private long time;
 
-    private int stops;
     private int value;
 
     private Queue<Location> points = new LinkedList<>();
@@ -34,13 +33,6 @@ public class Route {
         return time;
     }
 
-    public int getStops() {
-        return stops;
-    }
-
-    public void setStops(int stops) {
-        this.stops = stops;
-    }
 
     public Queue<Location> getPoints() {
         return points;
