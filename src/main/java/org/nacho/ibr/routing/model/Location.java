@@ -13,6 +13,8 @@ public class Location {
     private String time;
     private String description;
 
+    private long stopTime = 1800;
+
     private int minHour;
     private int maxHour;
 
@@ -115,5 +117,13 @@ public class Location {
 
     public Map<String, Distance> getDistances() {
         return distances;
+    }
+
+    public long getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(long stopTime) {
+        this.stopTime = stopTime;
     }
 }

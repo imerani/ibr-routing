@@ -28,7 +28,13 @@ public class App {
         int stops = 20 * 60;
         int startSleeping = 23;
 
-        int minpoints = 304;
+        int minpoints = 450;
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(2022, 6, 1, 10, 00);
+        Date startDate = cal.getTime();
+        cal.set(2022, 6, 4, 22,00);
+        Date endDate = cal.getTime();
 
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");
@@ -42,15 +48,13 @@ public class App {
         //RouteValidator validator = new FastRouteValidator();
         RouteValidator validator = new TimeRouteValidator();
         RouteParameters parameters = new RouteParameters();
-        parameters.setMaxSeconds(maxHours * 3600);
-        parameters.setMinSeconds(minHours * 3600);
         parameters.setSleepHours(4);
         parameters.setStopSeconds(stops);
         parameters.setStartSleeping(startSleeping);
 
-        Calendar cal = Calendar.getInstance();
-        cal.set(2022, 6, 1, 10, 00);
-        parameters.setStartDate(cal.getTime());
+        parameters.setStartDate(startDate);
+        parameters.setEndDate(endDate);
+        parameters.calculateLimits(4);
 
         Route initial = new Route(validator, parameters);
         List<Route> routes = new ArrayList<>();
@@ -96,7 +100,7 @@ public class App {
             i++;
         }
 
-        Exporter.exportRoutes("routes", winners, l);
+        Exporter.exportRoutes("routes", winners, l, parameters);
         System.out.println("Time: " + timer.stop());
     }
 }

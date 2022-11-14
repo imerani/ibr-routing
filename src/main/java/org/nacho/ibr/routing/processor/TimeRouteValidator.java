@@ -19,30 +19,43 @@ public class TimeRouteValidator implements RouteValidator {
     @Override
     public Distance addLocation(Route route, Location location, RouteParameters parameters) {
         Calendar calendar = GregorianCalendar.getInstance();
-        long distance = 0;
-        long time = 0;
-        Location last = route.getStart();
+        long distance = route.getPreviousDistance().getMeters();
+        long time = route.getPreviousDistance().getTime();
+        Location last;
+        if (route.getPoints().isEmpty()) {
+            last = route.getStart();
+        } else {
+            last = route.getPoints().peekLast();
+        }
+
         for (Location loc: route.getPoints()) {
             if (location.getName().equals(loc.getName())) return null;
-            if (loc.getName().equals(RouteParameters.SLEEP)) {
-                time += parameters.getSleepSeconds();
-                continue;
-            }
-            distance += last.getDistances().get(loc.getName()).getMeters();
-            time += last.getDistances().get(loc.getName()).getTime();
-            time += parameters.getStopSeconds();
-            if (time > parameters.getMaxSeconds()) {
-                return null;
-            }
-            last = loc;
+//            if (loc.getName().equals(RouteParameters.SLEEP)) {
+//                time += parameters.getSleepSeconds();
+//                continue;
+//            }
+//            distance += last.getDistances().get(loc.getName()).getMeters();
+//            time += last.getDistances().get(loc.getName()).getTime();
+//            time += parameters.getStopSeconds();
+//            if (time > parameters.getMaxSeconds()) {
+//                return null;
+//            }
+//            last = loc;
         }
 
         boolean needSleep = time > getNextSleep(route, parameters);
         if (last.getName().equals(RouteParameters.SLEEP)) {
             last = last.getPreviousLocation();
         }
+
         distance += location.getDistances().get(last.getName()).getMeters();
         time += location.getDistances().get(last.getName()).getTime();
+
+        long previousDistance = distance;
+        long previousTime = time;
+
+        distance += location.getDistances().get("END").getMeters();
+        time += location.getDistances().get("END").getTime();
 
         boolean valid;
         boolean sleepFirst = false;
@@ -59,12 +72,12 @@ public class TimeRouteValidator implements RouteValidator {
         if (needSleep) {
             time += parameters.getSleepSeconds();
         }
-        distance += location.getDistances().get("END").getMeters();
-        time += location.getDistances().get("END").getTime();
+
         if (time > parameters.getMaxSeconds()) {
             return null;
         }
         if (needSleep) {
+            previousTime += parameters.getSleepSeconds();
             setNextSleep(route);
             if (sleepFirst) {
                 route.getPoints().add(createSleepLocation(location));
@@ -76,6 +89,8 @@ public class TimeRouteValidator implements RouteValidator {
         } else {
             route.getPoints().add(location);
         }
+
+        route.setPreviousDistance(new Distance(previousTime, previousDistance));
 
         return new Distance(time, distance);
     }

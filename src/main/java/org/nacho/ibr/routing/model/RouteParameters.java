@@ -19,17 +19,18 @@ public class RouteParameters {
 
     private long[] endSleep;
 
-    public RouteParameters(long minSeconds, long maxSeconds, long stopSeconds, Date startDate, Date endDate, int sleepHours, int startSleeping) {
-        this.minSeconds = minSeconds;
-        this.maxSeconds = maxSeconds;
-        this.stopSeconds = stopSeconds;
-        this.startDate = startDate;
-        this.sleepHours = sleepHours;
-        this.startSleeping = startSleeping;
-        this.endDate = endDate;
+    public RouteParameters() {
     }
 
-    public RouteParameters() {
+    public void calculateLimits(int delta) {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(startDate);
+        long start = cal.getTimeInMillis() / 1000;
+        cal.setTime(endDate);
+        long end = cal.getTimeInMillis() / 1000;
+
+        maxSeconds = end - start;
+        minSeconds = maxSeconds - (delta * 3600);
     }
 
     public long[] getBeginSleep() {
@@ -59,6 +60,9 @@ public class RouteParameters {
         calendar.set(Calendar.MINUTE, 0);
 
         long st = (calendar.getTimeInMillis() - startDate.getTime())/ 1000;
+
+        Calendar c = GregorianCalendar.getInstance();
+
 
         for (int i=0;  i < q; i++) {
             beginSleep[i] = st;

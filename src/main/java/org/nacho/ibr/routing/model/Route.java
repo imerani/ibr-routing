@@ -14,9 +14,11 @@ public class Route {
 
     private long time;
 
+    private Distance previousDistance = new Distance(0, 0);
+
     private int value;
 
-    private Queue<Location> points = new LinkedList<>();
+    private Deque<Location> points = new LinkedList<>();
 
     private boolean slept[];
 
@@ -34,11 +36,11 @@ public class Route {
     }
 
 
-    public Queue<Location> getPoints() {
+    public Deque<Location> getPoints() {
         return points;
     }
 
-    public void setPoints(Queue<Location> points) {
+    public void setPoints(Deque<Location> points) {
         this.points = points;
     }
 
@@ -162,5 +164,13 @@ public class Route {
 
     public RouteParameters getParameters() {
         return parameters;
+    }
+
+    public Distance getPreviousDistance() {
+        return previousDistance;
+    }
+
+    public void setPreviousDistance(Distance previousDistance) {
+        this.previousDistance = previousDistance;
     }
 }
