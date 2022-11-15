@@ -28,7 +28,7 @@ public class App {
         int stops = 20 * 60;
         int startSleeping = 23;
 
-        int minpoints = 450;
+        int minpoints = 307;
 
         Calendar cal = Calendar.getInstance();
         cal.set(2022, 6, 1, 10, 00);
