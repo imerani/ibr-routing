@@ -3,15 +3,11 @@ package org.nacho.ibr.routing.util;
 import io.jenetics.jpx.GPX;
 import io.jenetics.jpx.WayPoint;
 import org.nacho.ibr.routing.model.Location;
-import org.nacho.ibr.routing.model.Route;
 import org.nacho.ibr.routing.model.RouteParameters;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 

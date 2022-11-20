@@ -3,10 +3,8 @@ package org.nacho.ibr.routing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
-import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Unit;
 import org.nacho.ibr.routing.model.Distance;
 import org.nacho.ibr.routing.model.Location;
@@ -14,8 +12,6 @@ import org.nacho.ibr.routing.parser.CSVReader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Maps {
 

@@ -2,11 +2,9 @@ package org.nacho.ibr.routing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.maps.internal.ratelimiter.Stopwatch;
-import jdk.jshell.spi.ExecutionControl;
 import org.nacho.ibr.routing.model.Location;
 import org.nacho.ibr.routing.model.Route;
 import org.nacho.ibr.routing.model.RouteParameters;
-import org.nacho.ibr.routing.processor.FastRouteValidator;
 import org.nacho.ibr.routing.processor.RouteExpander;
 import org.nacho.ibr.routing.processor.RouteValidator;
 import org.nacho.ibr.routing.processor.TimeRouteValidator;
@@ -23,17 +21,15 @@ import java.util.*;
 public class App {
     public static void main(String[] args) throws InterruptedException, IOException {
         // Parameters
-        int minHours = 60;
-        int maxHours = 64;
         int stops = 20 * 60;
         int startSleeping = 23;
 
-        int minpoints = 307;
+        int numPoints = 30;
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2022, 6, 1, 10, 00);
+        cal.set(2022, Calendar.JULY, 1, 10, 0);
         Date startDate = cal.getTime();
-        cal.set(2022, 6, 4, 22,00);
+        cal.set(2022, Calendar.JULY, 4, 22,0);
         Date endDate = cal.getTime();
 
         Stopwatch timer = Stopwatch.createStarted();
@@ -66,7 +62,7 @@ public class App {
         locations.remove("START");
         locations.remove("END");
 
-        locations = Utilities.filterPoints(locations, minpoints);
+        locations = Utilities.filterPoints(locations, numPoints, true);
 
         initial.setStart(start);
         initial.setEnd(end);

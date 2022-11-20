@@ -7,6 +7,7 @@ import org.nacho.ibr.routing.model.Route;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Utilities {
 
@@ -33,19 +34,19 @@ public class Utilities {
         return (rad * 180.0 / Math.PI);
     }
 
-    public static void addDistances(Map<String, Location> locations) {
-        for (Location location : locations.values()) {
-            for (Location l : locations.values()) {
-                if (location.getName().equals(l.getName())) {
-                    continue;
-                }
-                Distance d = new Distance();
-                d.setMeters((int)distance(location.getLatitude(), location.getLongitude(),
-                        l.getLatitude(), l.getLongitude()));
-                location.getDistances().put(l.getName(), d);
-            }
-        }
-    }
+//    public static void addDistances(Map<String, Location> locations) {
+//        for (Location location : locations.values()) {
+//            for (Location l : locations.values()) {
+//                if (location.getName().equals(l.getName())) {
+//                    continue;
+//                }
+//                Distance d = new Distance();
+//                d.setMeters((int) distance(location.getLatitude(), location.getLongitude(),
+//                        l.getLatitude(), l.getLongitude()));
+//                location.getDistances().put(l.getName(), d);
+//            }
+//        }
+//    }
 
     public static Route cloneRoute(Route route) {
         Route r = new Route(route.getValidator(), route.getParameters());
@@ -62,19 +63,23 @@ public class Utilities {
         return r;
     }
 
-    public static Map<String, Location> filterPoints(Map<String, Location> locations, int min) {
+    public static Map<String, Location> filterPoints(Map<String, Location> locations, int num, boolean sort) {
+        Collection<Location> source = locations.values();
+        if (sort) {
+            source = source.stream()
+                    .sorted((Location l1, Location l2) -> l2.getPoints() - l1.getPoints())
+                    .collect(Collectors.toList());
+        }
         Map<String, Location> retorno = new HashMap<>();
-        for (Location loc: locations.values()) {
-            if (loc.getPoints() > min) {
-                retorno.put(loc.getName(), loc);
-            }
+        for (Location loc : source.stream().limit(num).collect(Collectors.toList())) {
+            retorno.put(loc.getName(), loc);
         }
         return retorno;
     }
 
     public static List<Route> filterBest(List<Route> routes, int q) {
         if (routes.size() < q) {
-            return  routes;
+            return routes;
         }
         Collections.sort(routes, new Comparator<Route>() {
             @Override
@@ -91,7 +96,7 @@ public class Utilities {
         });
 
         List<Route> retorno = new ArrayList<>();
-        for(int i=0; i < q; i++) {
+        for (int i = 0; i < q; i++) {
             retorno.add(routes.get(i));
         }
 
@@ -102,7 +107,7 @@ public class Utilities {
         try {
             PrintWriter writer = new PrintWriter(filename);
 
-            for (Route route: routes) {
+            for (Route route : routes) {
                 writer.println(route);
             }
 
@@ -116,7 +121,7 @@ public class Utilities {
     public static List<Route> removeDuplicates(List<Route> routes) {
         Map<String, Route> map = new HashMap<>();
         System.out.print("Removing duplicates... " + routes.size() + " routes...");
-        for (Route r: routes) {
+        for (Route r : routes) {
             String hash = r.createHash();
             if (map.containsKey(hash)) {
                 Route r2 = map.get(hash);
@@ -127,7 +132,7 @@ public class Utilities {
                 map.put(hash, r);
             }
         }
-        System.out.println(map.size() +" routes stayed");
+        System.out.println(map.size() + " routes stayed");
         return new ArrayList<Route>(map.values());
     }
 
