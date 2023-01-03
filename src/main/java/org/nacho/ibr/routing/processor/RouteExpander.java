@@ -43,7 +43,7 @@ public class RouteExpander extends Thread {
             }
         }
         int best = 0;
-        for (Route r: result) {
+        for (Route r : result) {
             if (r.getTime() > parameters.getMinSeconds() && r.getTime() < parameters.getMaxSeconds()) {
                 if (r.getValue() > best) {
                     best = r.getValue();

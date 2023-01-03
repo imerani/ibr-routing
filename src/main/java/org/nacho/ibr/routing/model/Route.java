@@ -26,7 +26,7 @@ public class Route {
         this.validator = validator;
         this.parameters = parameters;
         slept = new boolean[parameters.getDays()];
-        for (int i=0; i < slept.length; i++) {
+        for (int i = 0; i < slept.length; i++) {
             slept[i] = false;
         }
     }
@@ -110,9 +110,7 @@ public class Route {
 
     public int getValue() {
         if (value == 0) {
-            for (Location l : points) {
-                value += l.getPoints();
-            }
+            value = parameters.getValueCalculator().calculateValue(this);
         }
         return value;
     }

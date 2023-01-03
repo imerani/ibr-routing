@@ -36,11 +36,12 @@ public class Location {
         this.maxHour = maxHour;
     }
 
-    public Location() {}
+    public Location() {
+    }
 
     private Map<String, Distance> distances = new HashMap<>();
 
-    public Location(String name, float latitude, float longitude, String icon, int points,  String time, int minHour, int maxHour) {
+    public Location(String name, float latitude, float longitude, String icon, int points, String time, int minHour, int maxHour) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;

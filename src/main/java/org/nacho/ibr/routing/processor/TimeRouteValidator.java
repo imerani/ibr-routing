@@ -28,7 +28,7 @@ public class TimeRouteValidator implements RouteValidator {
             last = route.getPoints().peekLast();
         }
 
-        for (Location loc: route.getPoints()) {
+        for (Location loc : route.getPoints()) {
             if (location.getName().equals(loc.getName())) return null;
 //            if (loc.getName().equals(RouteParameters.SLEEP)) {
 //                time += parameters.getSleepSeconds();
@@ -112,7 +112,7 @@ public class TimeRouteValidator implements RouteValidator {
     }
 
     private long getNextSleep(Route route, RouteParameters parameters) {
-        for (int i=0; i < route.getSlept().length; i++) {
+        for (int i = 0; i < route.getSlept().length; i++) {
             if (!route.getSlept()[i]) {
                 return parameters.getBeginSleep()[i];
             }
@@ -121,7 +121,7 @@ public class TimeRouteValidator implements RouteValidator {
     }
 
     private void setNextSleep(Route route) {
-        for (int i=0; i < route.getSlept().length; i++) {
+        for (int i = 0; i < route.getSlept().length; i++) {
             if (!route.getSlept()[i]) {
                 route.getSlept()[i] = true;
                 break;
@@ -130,7 +130,7 @@ public class TimeRouteValidator implements RouteValidator {
     }
 
     private Location createSleepLocation(Location location) {
-        Location loc = new Location(RouteParameters.SLEEP, location.getLatitude(), location.getLongitude(), location.getIcon(), 0, "",0,0);
+        Location loc = new Location(RouteParameters.SLEEP, location.getLatitude(), location.getLongitude(), location.getIcon(), 0, "", 0, 0);
         loc.setPreviousLocation(location);
         return loc;
     }

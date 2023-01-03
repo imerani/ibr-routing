@@ -3,6 +3,7 @@ package org.nacho.ibr.routing.util;
 import org.nacho.ibr.routing.model.Distance;
 import org.nacho.ibr.routing.model.Location;
 import org.nacho.ibr.routing.model.Route;
+import org.nacho.ibr.routing.model.RouteParameters;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -134,6 +135,14 @@ public class Utilities {
         }
         System.out.println(map.size() + " routes stayed");
         return new ArrayList<Route>(map.values());
+    }
+
+    public static void updateLocations(Location[] locations, RouteParameters parameters) {
+        for (Location l: locations) {
+            for (Distance d: l.getDistances().values()) {
+                d.setTime((long) (d.getTime() + (d.getTime() * parameters.getIncrement())));
+            }
+        }
     }
 
 }

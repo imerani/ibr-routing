@@ -1,5 +1,7 @@
 package org.nacho.ibr.routing.model;
 
+import org.nacho.ibr.routing.processor.ValueCalculator;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,11 +17,16 @@ public class RouteParameters {
     private int sleepHours;
     private int startSleeping;
 
+    private float increment;
+
     private long[] beginSleep;
 
     private long[] endSleep;
 
-    public RouteParameters() {
+    private ValueCalculator valueCalculator;
+
+    public RouteParameters(ValueCalculator calculator) {
+        this.valueCalculator = calculator;
     }
 
     public void calculateLimits(int delta) {
@@ -59,12 +66,12 @@ public class RouteParameters {
         calendar.set(Calendar.HOUR_OF_DAY, startSleeping);
         calendar.set(Calendar.MINUTE, 0);
 
-        long st = (calendar.getTimeInMillis() - startDate.getTime())/ 1000;
+        long st = (calendar.getTimeInMillis() - startDate.getTime()) / 1000;
 
         Calendar c = GregorianCalendar.getInstance();
 
 
-        for (int i=0;  i < q; i++) {
+        for (int i = 0; i < q; i++) {
             beginSleep[i] = st;
             endSleep[i] = st + (sleepHours * 3600);
             st += 24 * 3600;
@@ -136,5 +143,17 @@ public class RouteParameters {
 
     public long getSleepSeconds() {
         return sleepHours * 3600;
+    }
+
+    public ValueCalculator getValueCalculator() {
+        return valueCalculator;
+    }
+
+    public float getIncrement() {
+        return increment;
+    }
+
+    public void setIncrement(float increment) {
+        this.increment = increment;
     }
 }

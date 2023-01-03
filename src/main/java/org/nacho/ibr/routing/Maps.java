@@ -24,7 +24,7 @@ public class Maps {
                 .apiKey("-UBmvRrvWchCA")
                 .build();
 
-        for (Location l1: reader.getLocations().values()) {
+        for (Location l1 : reader.getLocations().values()) {
             for (Location l2 : reader.getLocations().values()) {
                 if (l2.getName().equals(l1.getName())) continue;
                 String[] origins = new String[]{Float.toString(l1.getLatitude()) + "," + l1.getLongitude()};
@@ -43,7 +43,6 @@ public class Maps {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(new File("test.json"), reader.getLocations().values());
-
 
 
     }
