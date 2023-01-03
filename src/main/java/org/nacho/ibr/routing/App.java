@@ -5,9 +5,7 @@ import com.google.maps.internal.ratelimiter.Stopwatch;
 import org.nacho.ibr.routing.model.Location;
 import org.nacho.ibr.routing.model.Route;
 import org.nacho.ibr.routing.model.RouteParameters;
-import org.nacho.ibr.routing.processor.RouteExpander;
-import org.nacho.ibr.routing.processor.RouteValidator;
-import org.nacho.ibr.routing.processor.TimeRouteValidator;
+import org.nacho.ibr.routing.processor.*;
 import org.nacho.ibr.routing.util.Exporter;
 import org.nacho.ibr.routing.util.Utilities;
 
@@ -24,26 +22,29 @@ public class App {
         int stops = 20 * 60;
         int startSleeping = 23;
 
-        int numPoints = 30;
+        int numPoints = 25;
 
         Calendar cal = Calendar.getInstance();
         cal.set(2022, Calendar.JULY, 1, 10, 0);
         Date startDate = cal.getTime();
-        cal.set(2022, Calendar.JULY, 4, 22,0);
+        cal.set(2022, Calendar.JULY, 4, 22, 0);
         Date endDate = cal.getTime();
+
+        ValueCalculator valueCalculator = new DefaultValueCalculator();
 
         Stopwatch timer = Stopwatch.createStarted();
         //CSVReader reader = new CSVReader("leg1.csv");
         ObjectMapper objectMapper = new ObjectMapper();
         Location[] l = objectMapper.readValue(new File("testtimes.json"), Location[].class);
+
         Map<String, Location> locations = new HashMap<>();
         //Utilities.addDistances(locations);
-        for (int i=0; i < l.length; i++) {
+        for (int i = 0; i < l.length; i++) {
             locations.put(l[i].getName(), l[i]);
         }
         //RouteValidator validator = new FastRouteValidator();
         RouteValidator validator = new TimeRouteValidator();
-        RouteParameters parameters = new RouteParameters();
+        RouteParameters parameters = new RouteParameters(valueCalculator);
         parameters.setSleepHours(4);
         parameters.setStopSeconds(stops);
         parameters.setStartSleeping(startSleeping);
@@ -51,6 +52,10 @@ public class App {
         parameters.setStartDate(startDate);
         parameters.setEndDate(endDate);
         parameters.calculateLimits(4);
+
+        parameters.setIncrement(0.15f);
+
+        Utilities.updateLocations(l, parameters);
 
         Route initial = new Route(validator, parameters);
         List<Route> routes = new ArrayList<>();
@@ -70,14 +75,14 @@ public class App {
         int i = 0;
         while (!routes.isEmpty()) {
             List<RouteExpander> expanders = new ArrayList<>();
-            for (Route route: routes) {
+            for (Route route : routes) {
                 RouteExpander expander = new RouteExpander(route, locations, parameters);
                 expanders.add(expander);
                 expander.start();
             }
 
             routes.clear();
-            for (RouteExpander expander: expanders) {
+            for (RouteExpander expander : expanders) {
                 expander.join();
                 routes.addAll(expander.getResult());
                 if (expander.getWinner() != null) {

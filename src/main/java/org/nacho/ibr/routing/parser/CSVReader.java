@@ -16,7 +16,7 @@ public class CSVReader {
         return locations;
     }
 
-    private Map<String,Location> locations;
+    private Map<String, Location> locations;
 
     public CSVReader(String file) {
         this.file = file;
@@ -39,8 +39,6 @@ public class CSVReader {
         }
 
     }
-
-
 
 
 }

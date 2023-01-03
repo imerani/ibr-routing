@@ -17,7 +17,7 @@ public class FastRouteValidator implements RouteValidator {
         long distance = 0;
         long time = 0;
         Location last = route.getStart();
-        for (Location loc: route.getPoints()) {
+        for (Location loc : route.getPoints()) {
             if (location.getName().equals(loc.getName())) return null;
             distance += last.getDistances().get(loc.getName()).getMeters();
             time += last.getDistances().get(loc.getName()).getTime();

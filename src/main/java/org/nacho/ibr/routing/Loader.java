@@ -15,7 +15,7 @@ public class Loader {
 
         CSVReader reader = new CSVReader("leg1time.csv");
 
-        for (Location location: l) {
+        for (Location location : l) {
             Location l2 = reader.getLocations().get(location.getName());
             location.setMinHour(l2.getMinHour());
             location.setMaxHour(l2.getMaxHour());

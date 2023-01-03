@@ -9,7 +9,8 @@ public class Distance {
         return time;
     }
 
-    public Distance() {}
+    public Distance() {
+    }
 
     public Distance(long time, long meters) {
         this.time = time;
