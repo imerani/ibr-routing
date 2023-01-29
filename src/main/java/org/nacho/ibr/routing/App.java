@@ -53,7 +53,7 @@ public class App {
         parameters.setEndDate(endDate);
         parameters.calculateLimits(4);
 
-        parameters.setIncrement(0.15f);
+        parameters.setIncrement(0.2f);
 
         Utilities.updateLocations(l, parameters);
 
